@@ -7,14 +7,15 @@ let file = fs
     .split("\n");
 
 let sum = 0;
-const JOLTAGE = 12;
+const SIZE = 12;
 
 for (let bank of file) {
     let left = 0;
-    let right = bank.length - JOLTAGE;
-    const seq = [];
+    let right = bank.length - SIZE;
+    let joltage = 0;
+    let found = 0;
 
-    while (seq.length !== JOLTAGE) {
+    while (found < SIZE) {
         let curr = bank
             .slice(left, right + 1)
             .split("")
@@ -22,13 +23,13 @@ for (let bank of file) {
 
         let m = Math.max(...curr);
 
-        seq.push(m);
-
+        joltage = joltage * 10 + m;
+        found++;
         left += curr.indexOf(m) + 1;
         right++;
     }
 
-    sum += +seq.join("");
+    sum += joltage;
 }
 
 console.log(sum);
